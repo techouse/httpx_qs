@@ -1,0 +1,134 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "httpx-qs"
+description = "HTTPX transport leveraging qs-codec for advanced query string encoding and decoding."
+readme = { file = "README.rst", content-type = "text/x-rst" }
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+requires-python = ">=3.9"
+authors = [
+    { name = "Klemen Tusar", email = "techouse@gmail.com" },
+]
+keywords = [
+    "httpx", "qs", "codec", "url", "query", "querystring", "query-string",
+    "urlencode", "urldecode", "form-urlencoded", "percent-encoding",
+    "rfc3986", "arrays", "nested", "brackets"
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+dependencies = [
+    "httpx>=0.28.1",
+    "qs-codec>=1.2.3",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://techouse.github.io/httpx_qs/"
+Documentation = "https://techouse.github.io/httpx_qs/"
+Repository = "https://github.com/techouse/httpx_qs.git"
+Issues = "https://github.com/techouse/httpx_qs/issues"
+Changelog = "https://github.com/techouse/httpx_qs/blob/master/CHANGELOG.md"
+Sponsor = "https://github.com/sponsors/techouse"
+PayPal = "https://paypal.me/ktusar"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-cov>=6.0.0",
+    "mypy>=1.15.0",
+    "toml>=0.10.2",
+    "tox",
+    "black",
+    "isort"
+]
+
+[tool.hatch.version]
+path = "src/httpx_qs/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src",
+    "tests",
+    "README.rst",
+    "CHANGELOG.md",
+    "CODE-OF-CONDUCT.md",
+    "LICENSE",
+    "requirements_dev.txt",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/httpx_qs"]
+include = ["src/httpx_qs/py.typed"]
+
+[tool.black]
+line-length = 120
+target-version = ["py39", "py310", "py311", "py312", "py313"]
+include = '\.pyi?$'
+exclude = '''
+(
+    /(
+        \.eggs
+        | \.git
+        | \.hg
+        | \.mypy_cache
+        | \.tox
+        | \.venv
+        | _build
+        | buck-out
+        | build
+        | dist
+        | docs
+    )/
+    | foo.py
+)
+'''
+
+[tool.isort]
+line_length = 120
+profile = "black"
+lines_after_imports = 2
+known_first_party = "httpx_qs"
+skip_gitignore = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+norecursedirs = [".*", "venv", "env", "*.egg", "dist", "build"]
+minversion = "8.1.1"
+addopts = "-rsxX -l --tb=short --strict-markers"
+markers = []
+
+[tool.mypy]
+mypy_path = "src"
+python_version = "3.9"
+exclude = [
+    "tests",
+    "docs",
+    "build",
+    "dist",
+    "venv",
+    "env",
+]
+show_error_codes = true
+warn_return_any = true
+warn_unused_configs = true
