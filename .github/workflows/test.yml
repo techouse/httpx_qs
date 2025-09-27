@@ -1,0 +1,94 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_call:
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: "Analyze"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+          cache: "pip"
+      - name: Install dependencies
+        run: pip install -r requirements_dev.txt
+      - name: Run static analysis
+        run: tox -e linters
+  test:
+    name: "Test"
+    needs: analyze
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - toxenv: "python3.9"
+            py: "3.9"
+          - toxenv: "python3.10"
+            py: "3.10"
+          - toxenv: "python3.11"
+            py: "3.11"
+          - toxenv: "python3.12"
+            py: "3.12"
+          - toxenv: "python3.13"
+            py: "3.13"
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up Python ${{ matrix.py }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.py }}
+          cache: "pip"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-1
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install dependencies
+        run: |
+          pip install -U codecov tox-gh-actions
+          pip install -r requirements_dev.txt
+      - name: Test with tox
+        run: tox
+      - name: Check Code Coverage
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: ./coverage.xml
+          thresholds: 90
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        continue-on-error: true
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: techouse/https_qs
+          files: ./coverage.xml
+          env_vars: OS,PYTHON
+          verbose: true
+      - name: Upload coverage to Codacy
+        continue-on-error: true
+        uses: codacy/codacy-coverage-reporter-action@v1
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage.xml
