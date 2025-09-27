@@ -4,13 +4,29 @@ httpx-qs
 Smart, policy-driven query string merging & encoding for `httpx <https://www.python-httpx.org>`_ powered by
 `qs-codec <https://techouse.github.io/qs_codec/>`_.
 
-.. image:: https://img.shields.io/pypi/v/httpx-qs.svg
+.. image:: https://img.shields.io/pypi/v/httpx-qs
    :target: https://pypi.org/project/httpx-qs/
    :alt: PyPI version
 
-.. image:: https://img.shields.io/pypi/pyversions/httpx-qs.svg
+.. image:: https://img.shields.io/pypi/status/httpx-qs
+   :target: https://pypi.org/project/httpx-qs/
+   :alt: PyPI - Status
+
+.. image:: https://img.shields.io/pypi/pyversions/httpx-qs
    :target: https://pypi.org/project/httpx-qs/
    :alt: Supported Python versions
+
+.. image:: https://img.shields.io/pypi/format/httpx-qs
+   :target: https://pypi.org/project/httpx-qs/
+   :alt: PyPI - Format
+
+.. image:: https://github.com/techouse/httpx_qs/actions/workflows/test.yml/badge.svg
+   :target: https://github.com/techouse/httpx_qs/actions/workflows/test.yml
+   :alt: Tests
+
+.. image:: https://github.com/techouse/httpx_qs/actions/workflows/github-code-scanning/codeql/badge.svg
+   :target: https://github.com/techouse/httpx_qs/actions/workflows/github-code-scanning/codeql
+   :alt: CodeQL
 
 .. image:: https://img.shields.io/github/license/techouse/httpx_qs
    :target: https://github.com/techouse/httpx_qs/blob/master/LICENSE
