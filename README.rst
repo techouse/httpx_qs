@@ -40,6 +40,37 @@ Smart, policy-driven query string merging & encoding for `httpx <https://www.pyt
    :target: https://app.codacy.com/gh/techouse/httpx_qs/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
    :alt: Codacy Quality
 
+.. image:: https://img.shields.io/github/sponsors/techouse
+   :target: https://github.com/sponsors/techouse
+   :alt: GitHub Sponsors
+
+.. image:: https://img.shields.io/github/stars/techouse/qs_codec
+   :target: https://github.com/techouse/qs_codec/stargazers
+   :alt: GitHub Repo stars
+
+.. image:: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+   :target: CODE-OF-CONDUCT.md
+   :alt: Contributor Covenant
+
+.. |flake8| image:: https://img.shields.io/badge/flake8-checked-blueviolet.svg
+   :target: https://flake8.pycqa.org/en/latest/
+
+.. image:: https://img.shields.io/badge/mypy-checked-blue.svg
+   :target: https://mypy.readthedocs.io/en/stable/
+   :alt: mypy
+
+.. image:: https://img.shields.io/badge/linting-pylint-yellowgreen.svg
+   :target: https://github.com/pylint-dev/pylint
+   :alt: pylint
+
+.. image:: https://img.shields.io/badge/imports-isort-blue.svg
+   :target: https://pycqa.github.io/isort/
+   :alt: isort
+
+.. image:: https://img.shields.io/badge/security-bandit-blue.svg
+   :target: https://github.com/PyCQA/bandit
+   :alt: Security Status
+
 Overview
 --------
 
