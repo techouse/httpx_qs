@@ -1,0 +1,39 @@
+name: Docs
+
+on:
+  workflow_dispatch:
+    branches:
+      - main
+  workflow_call:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+          cache: "pip"
+      - name: Install package
+        run: pip install -e .
+      - name: Install Sphinx dependencies
+        working-directory: docs
+        run: pip install -r requirements.txt
+      - name: Sphinx build
+        working-directory: docs
+        run: sphinx-build . _build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/
+          force_orphan: true
