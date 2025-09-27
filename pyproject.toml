@@ -37,7 +37,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "httpx>=0.28.1",
+    "httpx>=0.28.1, <1.0.0",
     "qs-codec>=1.2.3",
 ]
 dynamic = ["version"]
