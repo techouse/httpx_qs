@@ -12,9 +12,17 @@ Smart, policy-driven query string merging & encoding for `httpx <https://www.pyt
    :target: https://pypi.org/project/httpx-qs/
    :alt: Supported Python versions
 
-.. image:: https://img.shields.io/pypi/l/httpx-qs.svg
+.. image:: https://img.shields.io/github/license/techouse/httpx_qs
    :target: https://github.com/techouse/httpx_qs/blob/master/LICENSE
    :alt: License
+
+.. image:: https://codecov.io/gh/techouse/httpx_qs/graph/badge.svg?token=JMt8akIZFh
+   :target: https://codecov.io/gh/techouse/httpx_qs
+   :alt: Codecov
+
+.. image:: https://app.codacy.com/project/badge/Grade/420bf66ab90d4b3798573b6ff86d02af
+   :target: https://app.codacy.com/gh/techouse/httpx_qs/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
+   :alt: Codacy Quality
 
 Overview
 --------
