@@ -1,6 +1,6 @@
 """httpx-qs: A library for smart query string handling with httpx."""
 
-__version__ = "0.0.2"
+__version__ = "0.1.0"
 
 from .enums.merge_policy import MergePolicy
 from .transporters import smart_query_strings

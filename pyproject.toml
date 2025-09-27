@@ -44,7 +44,6 @@ dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://techouse.github.io/httpx_qs/"
-Documentation = "https://techouse.github.io/httpx_qs/"
 Repository = "https://github.com/techouse/httpx_qs.git"
 Issues = "https://github.com/techouse/httpx_qs/issues"
 Changelog = "https://github.com/techouse/httpx_qs/blob/master/CHANGELOG.md"
