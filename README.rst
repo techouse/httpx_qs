@@ -44,8 +44,8 @@ Smart, policy-driven query string merging & encoding for `httpx <https://www.pyt
    :target: https://github.com/sponsors/techouse
    :alt: GitHub Sponsors
 
-.. image:: https://img.shields.io/github/stars/techouse/qs_codec
-   :target: https://github.com/techouse/qs_codec/stargazers
+.. image:: https://img.shields.io/github/stars/techouse/httpx_qs
+   :target: https://github.com/techouse/httpx_qs/stargazers
    :alt: GitHub Repo stars
 
 .. image:: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
