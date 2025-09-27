@@ -15,7 +15,7 @@ from httpx_qs import __version__
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "httpx-qs"
-copyright = "2024, Klemen Tusar"
+copyright = "2025, Klemen Tusar"
 author = "Klemen Tusar"
 release = __version__
 
