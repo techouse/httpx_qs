@@ -81,7 +81,7 @@ jobs:
         continue-on-error: true
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: techouse/https_qs
+          slug: techouse/httpx_qs
           files: ./coverage.xml
           env_vars: OS,PYTHON
           verbose: true
