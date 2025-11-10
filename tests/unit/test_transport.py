@@ -1,5 +1,6 @@
 import pytest
 from httpx import BaseTransport, Client, Request, Response
+from qs_codec import EncodeOptions, ListFormat
 
 from httpx_qs import MergePolicy
 from httpx_qs.transporters.smart_query_strings import SmartQueryStrings
@@ -72,6 +73,20 @@ class TestTransport:
         )
         qp: str = str(res.request.url)
         assert "a=1" in qp and "b=2" in qp
+
+    def test_custom_encode_options_applied(self) -> None:
+        res: Response = self.client.get(
+            "https://example.com",
+            params={"tags": ["base"]},
+            extensions={
+                "extra_query_params": {"tags": ["extra"]},
+                "extra_query_params_options": EncodeOptions(list_format=ListFormat.BRACKETS),
+            },
+        )
+        qp: str = str(res.request.url)
+        assert qp.count("tags%5B%5D=") == 2
+        assert "tags%5B%5D=base" in qp
+        assert "tags%5B%5D=extra" in qp
 
 
 class DummyTransport(BaseTransport):

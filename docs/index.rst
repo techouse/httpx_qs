@@ -91,6 +91,13 @@ HTTPX already lets you pass ``params=`` when making requests, but sometimes you 
 
 ``qs-codec`` supplies the primitives (decoding & encoding with configurable ``ListFormat``). ``httpx-qs`` stitches that into HTTPX's transport pipeline so you can declaratively extend queries at request dispatch time.
 
+Requirements
+------------
+
+* Python 3.8+
+* ``httpx>=0.28.1,<1.0.0``
+* ``qs-codec>=1.3.1``
+
 Installation
 ------------
 
