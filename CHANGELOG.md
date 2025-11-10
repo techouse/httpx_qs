@@ -1,3 +1,10 @@
+## 0.2.0
+
+* [CHORE] re-instate Python 3.8 support
+* [CHORE] add Python 3.14 support
+* [CHORE] add PyPy 3.8 to 3.11 support
+* [CHORE] update dependencies
+
 ## 0.1.2
 
 * [DOCS] add Sphinx documentation
