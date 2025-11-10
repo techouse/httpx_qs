@@ -94,7 +94,7 @@ HTTPX already lets you pass ``params=`` when making requests, but sometimes you 
 Requirements
 ------------
 
-* Python 3.8+
+* CPython 3.8-3.14 or PyPy 3.8-3.11
 * ``httpx>=0.28.1,<1.0.0``
 * ``qs-codec>=1.3.1``
 
