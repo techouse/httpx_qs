@@ -42,6 +42,8 @@ jobs:
     strategy:
       matrix:
         include:
+          - toxenv: "python3.8"
+            py: "3.8"
           - toxenv: "python3.9"
             py: "3.9"
           - toxenv: "python3.10"
@@ -52,6 +54,16 @@ jobs:
             py: "3.12"
           - toxenv: "python3.13"
             py: "3.13"
+          - toxenv: "python3.14"
+            py: "3.14"
+          - toxenv: "pypy3.8"
+            py: "pypy3.8"
+          - toxenv: "pypy3.9"
+            py: "pypy3.9"
+          - toxenv: "pypy3.10"
+            py: "pypy3.10"
+          - toxenv: "pypy3.11"
+            py: "pypy3.11"
     steps:
       - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.py }}

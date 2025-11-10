@@ -38,3 +38,7 @@ class TestMergeQuery:
         # Expect four occurrences preserving first two then the added two
         assert result.count("a=") == 4
         assert "a=1" in result and "a=2" in result and "a=3" in result and "a=4" in result
+
+    def test_merge_policy_accepts_string_value(self) -> None:
+        result: str = merge_query(self.base_existing, {"a": 2}, policy="replace")
+        assert result.endswith("a=2")

@@ -11,15 +11,15 @@ related to the project.
 
 ## Python version support
 
-Currently, the package supports Python versions 3.9 and above. Once a new Python version is released, we will aim to 
-support it as soon as possible. If you encounter any issues with a new Python version, please create an issue in the 
-repository.
+Currently, the package supports CPython versions 3.8 through 3.14 and PyPy versions 3.8 through 3.11. Once a new Python
+version is released, we will aim to support it as soon as possible. If you encounter any issues with a new Python
+version or an unsupported PyPy build, please create an issue in the repository.
 
 ## Testing
 
 Given the critical nature of correctly encoded HTTP query strings and the potential for security vulnerabilities if
-encoding is not done correctly or consistently across platforms and versions of Python, thorough testing is of utmost 
-importance. Please remember to write tests for any new code you create, using  the
+encoding is not done correctly or consistently across platforms and versions of Python, thorough testing is of utmost
+importance. Please remember to write tests for any new code you create, using the
 [pytest](https://pypi.org/project/pytest/) package for all test cases.
 
 ### Running the test suite
@@ -53,7 +53,7 @@ git commit -m "A brief summary of the commit
 
 ## Coding standards
 
-Prioritizing code readability and conciseness is essential. To achieve this, we recommend using 
+Prioritizing code readability and conciseness is essential. To achieve this, we recommend using
 [black](https://pypi.org/project/black/) for code formatting. Once your work is deemed complete, it is advisable to run
 the following command:
 

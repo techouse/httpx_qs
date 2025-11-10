@@ -1,5 +1,6 @@
 import pytest
 from httpx import BaseTransport, Client, Request, Response
+from qs_codec import EncodeOptions, ListFormat
 
 from httpx_qs import MergePolicy
 from httpx_qs.transporters.smart_query_strings import SmartQueryStrings
@@ -72,6 +73,39 @@ class TestTransport:
         )
         qp: str = str(res.request.url)
         assert "a=1" in qp and "b=2" in qp
+
+    def test_string_policy_value(self) -> None:
+        res: Response = self.client.get(
+            "https://example.com",
+            params={"dup": "old"},
+            extensions={
+                "extra_query_params": {"dup": "new"},
+                "extra_query_params_policy": "replace",
+            },
+        )
+        qp: str = str(res.request.url)
+        assert "dup=new" in qp and "dup=old" not in qp
+
+    def test_no_extra_params_leaves_url_unchanged(self) -> None:
+        res: Response = self.client.get(
+            "https://example.com",
+            params={"key": "value"},
+        )
+        assert str(res.request.url).endswith("key=value")
+
+    def test_custom_encode_options_applied(self) -> None:
+        res: Response = self.client.get(
+            "https://example.com",
+            params={"tags": ["base"]},
+            extensions={
+                "extra_query_params": {"tags": ["extra"]},
+                "extra_query_params_options": EncodeOptions(list_format=ListFormat.BRACKETS),
+            },
+        )
+        qp: str = str(res.request.url)
+        assert qp.count("tags%5B%5D=") == 2
+        assert "tags%5B%5D=base" in qp
+        assert "tags%5B%5D=extra" in qp
 
 
 class DummyTransport(BaseTransport):
