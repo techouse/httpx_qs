@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>httpx_qs.utils.merge_query &#8212; httpx-qs 0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../../_static/documentation_options.js?v=37f418d5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for httpx_qs.utils.merge_query</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Utility to merge query parameters into a URL&#39;s query string.</span>
+
+<span class="sd">Provides different merge policies controlling how conflicting keys are handled.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">SplitResult</span><span class="p">,</span> <span class="n">urlsplit</span><span class="p">,</span> <span class="n">urlunsplit</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">qs_codec</span><span class="w"> </span><span class="kn">import</span> <span class="n">EncodeOptions</span><span class="p">,</span> <span class="n">ListFormat</span><span class="p">,</span> <span class="n">decode</span><span class="p">,</span> <span class="n">encode</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">httpx_qs.enums.merge_policy</span><span class="w"> </span><span class="kn">import</span> <span class="n">MergePolicy</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_combine</span><span class="p">(</span><span class="n">existing_value</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="n">new_value</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a combined list ensuring list semantics for multiple values.</span>
+
+<span class="sd">    Always returns a list (copy) even if both inputs are scalar values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">left_list</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="c1"># slice copy then cast to satisfy type checker</span>
+        <span class="n">left_list</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span> <span class="n">existing_value</span><span class="p">[:])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">left_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">existing_value</span><span class="p">]</span>
+
+    <span class="n">right_list</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">right_list</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span> <span class="n">new_value</span><span class="p">[:])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">right_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">new_value</span><span class="p">]</span>
+    <span class="c1"># Return a new list (avoid mutating originals if lists)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">left_list</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">right_list</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="merge_query">
+<a class="viewcode-back" href="../../../api/httpx_qs.utils.merge_query.html#httpx_qs.merge_query">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">merge_query</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">extra</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span>
+    <span class="n">options</span><span class="p">:</span> <span class="n">EncodeOptions</span> <span class="o">=</span> <span class="n">EncodeOptions</span><span class="p">(</span><span class="n">list_format</span><span class="o">=</span><span class="n">ListFormat</span><span class="o">.</span><span class="n">REPEAT</span><span class="p">),</span>
+    <span class="n">policy</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">MergePolicy</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">MergePolicy</span><span class="o">.</span><span class="n">COMBINE</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge extra query parameters into a URL&#39;s existing query string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: The original URL which may contain an existing query string.</span>
+<span class="sd">        extra: Mapping of additional query parameters to merge into the URL.</span>
+<span class="sd">        options: Optional :class:`qs_codec.EncodeOptions` to customize encoding behavior.</span>
+<span class="sd">        policy: Merge policy to apply when a key already exists (``combine`` | ``replace`` | ``keep`` | ``error``).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The URL with the merged query string.</span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If ``policy == &#39;error&#39;`` and a duplicate key is encountered.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">policy_enum</span><span class="p">:</span> <span class="n">MergePolicy</span> <span class="o">=</span> <span class="n">MergePolicy</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">MergePolicy</span><span class="p">)</span> <span class="k">else</span> <span class="n">policy</span>
+
+    <span class="n">parts</span><span class="p">:</span> <span class="n">SplitResult</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">existing</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">parts</span><span class="o">.</span><span class="n">query</span><span class="p">)</span> <span class="k">if</span> <span class="n">parts</span><span class="o">.</span><span class="n">query</span> <span class="k">else</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">extra</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing</span><span class="p">:</span>
+            <span class="n">existing</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># k exists already</span>
+        <span class="k">if</span> <span class="n">policy_enum</span> <span class="ow">is</span> <span class="n">MergePolicy</span><span class="o">.</span><span class="n">COMBINE</span><span class="p">:</span>
+            <span class="n">existing</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">_combine</span><span class="p">(</span><span class="n">existing</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">policy_enum</span> <span class="ow">is</span> <span class="n">MergePolicy</span><span class="o">.</span><span class="n">REPLACE</span><span class="p">:</span>
+            <span class="n">existing</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">elif</span> <span class="n">policy_enum</span> <span class="ow">is</span> <span class="n">MergePolicy</span><span class="o">.</span><span class="n">KEEP</span><span class="p">:</span>
+            <span class="c1"># Leave existing value untouched</span>
+            <span class="k">continue</span>
+        <span class="k">elif</span> <span class="n">policy_enum</span> <span class="ow">is</span> <span class="n">MergePolicy</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Duplicate query parameter &#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&#39; encountered while policy=error&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover - defensive (should not happen due to Enum validation)</span>
+            <span class="n">existing</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">_combine</span><span class="p">(</span><span class="n">existing</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">urlunsplit</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">encode</span><span class="p">(</span><span class="n">existing</span><span class="p">,</span> <span class="n">options</span><span class="p">),</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">fragment</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">httpx-qs</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">Using Merge Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html#async-usage">Async Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html#merge-query-utility"><code class="docutils literal notranslate"><span class="pre">merge_query</span></code> Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html#why-listformat-repeat-by-default">Why <code class="docutils literal notranslate"><span class="pre">ListFormat.REPEAT</span></code> by Default?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html#advanced-per-request-customization">Advanced Per-Request Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html#error-policy-example">Error Policy Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html#testing-strategy">Testing Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html#further-reading">Further Reading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html#license">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html#contributing">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Klemen Tusar.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

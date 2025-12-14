@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>httpx_qs.utils.merge_query module &#8212; httpx-qs 0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=37f418d5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="httpx_qs.enums package" href="httpx_qs.enums.html" />
+    <link rel="prev" title="httpx_qs.utils package" href="httpx_qs.utils.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-httpx_qs.utils.merge_query">
+<span id="httpx-qs-utils-merge-query-module"></span><h1>httpx_qs.utils.merge_query module<a class="headerlink" href="#module-httpx_qs.utils.merge_query" title="Link to this heading">¶</a></h1>
+<p>Utility to merge query parameters into a URL’s query string.</p>
+<p>Provides different merge policies controlling how conflicting keys are handled.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="httpx_qs.utils.merge_query.merge_query">
+<span class="sig-prename descclassname"><span class="pre">httpx_qs.utils.merge_query.</span></span><span class="sig-name descname"><span class="pre">merge_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">url:</span> <span class="pre">str,</span> <span class="pre">extra:</span> <span class="pre">~typing.Mapping[str,</span> <span class="pre">~typing.Any],</span> <span class="pre">options:</span> <span class="pre">~qs_codec.models.encode_options.EncodeOptions</span> <span class="pre">=</span> <span class="pre">EncodeOptions(allow_dots=False,</span> <span class="pre">add_query_prefix=False,</span> <span class="pre">allow_empty_lists=False,</span> <span class="pre">indices=None,</span> <span class="pre">list_format=&lt;ListFormat.REPEAT:</span> <span class="pre">list_format_name='REPEAT',</span> <span class="pre">generator=&lt;function</span> <span class="pre">ListFormatGenerator.repeat&gt;&gt;,</span> <span class="pre">charset=&lt;Charset.UTF8:</span> <span class="pre">encoding='utf-8'&gt;,</span> <span class="pre">charset_sentinel=False,</span> <span class="pre">delimiter='&amp;',</span> <span class="pre">encode=True,</span> <span class="pre">encode_dot_in_keys=False,</span> <span class="pre">encode_values_only=False,</span> <span class="pre">format=&lt;Format.RFC3986:</span> <span class="pre">format_name='RFC3986',</span> <span class="pre">formatter=&lt;function</span> <span class="pre">Formatter.rfc3986&gt;&gt;,</span> <span class="pre">filter=None,</span> <span class="pre">skip_nulls=False,</span> <span class="pre">serialize_date=&lt;function</span> <span class="pre">EncodeUtils.serialize_date&gt;,</span> <span class="pre">encoder=&lt;function</span> <span class="pre">EncodeOptions.encoder.&lt;locals&gt;.&lt;lambda&gt;&gt;,</span> <span class="pre">strict_null_handling=False,</span> <span class="pre">comma_round_trip=None,</span> <span class="pre">comma_compact_nulls=False,</span> <span class="pre">sort=None),</span> <span class="pre">policy:</span> <span class="pre">~httpx_qs.enums.merge_policy.MergePolicy</span> <span class="pre">|</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">MergePolicy.COMBINE</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/httpx_qs/utils/merge_query.html#merge_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#httpx_qs.utils.merge_query.merge_query" title="Link to this definition">¶</a></dt>
+<dd><p>Merge extra query parameters into a URL’s existing query string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> – The original URL which may contain an existing query string.</p></li>
+<li><p><strong>extra</strong> – Mapping of additional query parameters to merge into the URL.</p></li>
+<li><p><strong>options</strong> – Optional <code class="xref py py-class docutils literal notranslate"><span class="pre">qs_codec.EncodeOptions</span></code> to customize encoding behavior.</p></li>
+<li><p><strong>policy</strong> – Merge policy to apply when a key already exists (<code class="docutils literal notranslate"><span class="pre">combine</span></code> | <code class="docutils literal notranslate"><span class="pre">replace</span></code> | <code class="docutils literal notranslate"><span class="pre">keep</span></code> | <code class="docutils literal notranslate"><span class="pre">error</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The URL with the merged query string.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If <code class="docutils literal notranslate"><span class="pre">policy</span> <span class="pre">==</span> <span class="pre">'error'</span></code> and a duplicate key is encountered.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">httpx-qs</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Using Merge Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#async-usage">Async Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#merge-query-utility"><code class="docutils literal notranslate"><span class="pre">merge_query</span></code> Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#why-listformat-repeat-by-default">Why <code class="docutils literal notranslate"><span class="pre">ListFormat.REPEAT</span></code> by Default?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#advanced-per-request-customization">Advanced Per-Request Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#error-policy-example">Error Policy Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#testing-strategy">Testing Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#further-reading">Further Reading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#license">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#contributing">Contributing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.html">httpx_qs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.transporters.html">httpx_qs.transporters package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.transporters.smart_query_strings.html">httpx_qs.transporters.smart_query_strings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.utils.html">httpx_qs.utils package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">httpx_qs.utils.merge_query module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.enums.html">httpx_qs.enums package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.enums.merge_policy.html">httpx_qs.enums.merge_policy module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../modules.html">API Reference</a><ul>
+      <li>Previous: <a href="httpx_qs.utils.html" title="previous chapter">httpx_qs.utils package</a></li>
+      <li>Next: <a href="httpx_qs.enums.html" title="next chapter">httpx_qs.enums package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Klemen Tusar.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/api/httpx_qs.utils.merge_query.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

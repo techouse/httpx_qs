@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>httpx_qs.enums.merge_policy module &#8212; httpx-qs 0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=37f418d5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="httpx_qs.enums package" href="httpx_qs.enums.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-httpx_qs.enums.merge_policy">
+<span id="httpx-qs-enums-merge-policy-module"></span><h1>httpx_qs.enums.merge_policy module<a class="headerlink" href="#module-httpx_qs.enums.merge_policy" title="Link to this heading">¶</a></h1>
+<p>Policy that determines how to handle keys that already exist in the query string.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="httpx_qs.enums.merge_policy.MergePolicy">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">httpx_qs.enums.merge_policy.</span></span><span class="sig-name descname"><span class="pre">MergePolicy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/httpx_qs/enums/merge_policy.html#MergePolicy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#httpx_qs.enums.merge_policy.MergePolicy" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Policy that determines how to handle keys that already exist in the query string.</p>
+<dl class="simple">
+<dt>Values:</dt><dd><p>COMBINE: (default) Combine existing and new values into a list (preserving order: existing then new).
+REPLACE: Replace existing value with the new one (last-wins).
+KEEP: Keep the existing value, ignore the new one (first-wins).
+ERROR: Raise a ValueError if a key collision occurs.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="httpx_qs.enums.merge_policy.MergePolicy.COMBINE">
+<span class="sig-name descname"><span class="pre">COMBINE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'combine'</span></em><a class="headerlink" href="#httpx_qs.enums.merge_policy.MergePolicy.COMBINE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="httpx_qs.enums.merge_policy.MergePolicy.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'error'</span></em><a class="headerlink" href="#httpx_qs.enums.merge_policy.MergePolicy.ERROR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="httpx_qs.enums.merge_policy.MergePolicy.KEEP">
+<span class="sig-name descname"><span class="pre">KEEP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'keep'</span></em><a class="headerlink" href="#httpx_qs.enums.merge_policy.MergePolicy.KEEP" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="httpx_qs.enums.merge_policy.MergePolicy.REPLACE">
+<span class="sig-name descname"><span class="pre">REPLACE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'replace'</span></em><a class="headerlink" href="#httpx_qs.enums.merge_policy.MergePolicy.REPLACE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">httpx-qs</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Using Merge Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#async-usage">Async Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#merge-query-utility"><code class="docutils literal notranslate"><span class="pre">merge_query</span></code> Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#why-listformat-repeat-by-default">Why <code class="docutils literal notranslate"><span class="pre">ListFormat.REPEAT</span></code> by Default?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#advanced-per-request-customization">Advanced Per-Request Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#error-policy-example">Error Policy Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#testing-strategy">Testing Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#further-reading">Further Reading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#license">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html#contributing">Contributing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.html">httpx_qs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.transporters.html">httpx_qs.transporters package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.transporters.smart_query_strings.html">httpx_qs.transporters.smart_query_strings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.utils.html">httpx_qs.utils package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.utils.merge_query.html">httpx_qs.utils.merge_query module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="httpx_qs.enums.html">httpx_qs.enums package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">httpx_qs.enums.merge_policy module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../modules.html">API Reference</a><ul>
+      <li>Previous: <a href="httpx_qs.enums.html" title="previous chapter">httpx_qs.enums package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Klemen Tusar.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/api/httpx_qs.enums.merge_policy.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
