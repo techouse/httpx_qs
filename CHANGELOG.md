@@ -1,3 +1,7 @@
+## 0.2.1
+
+* [CHORE] pin mypy<1.19 on PyPy to avoid new `librt` build failures while keeping newer mypy on CPython
+
 ## 0.2.0
 
 * [CHORE] re-instate Python 3.8 support

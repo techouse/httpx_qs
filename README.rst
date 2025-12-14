@@ -4,15 +4,15 @@ httpx-qs
 Smart, policy-driven query string merging & encoding for `httpx <https://www.python-httpx.org>`_ powered by
 `qs-codec <https://techouse.github.io/qs_codec/>`_.
 
-.. image:: https://img.shields.io/pypi/v/httpx-qs
+.. image:: https://img.shields.io/pypi/v/httpx-qs?logo=pypi
    :target: https://pypi.org/project/httpx-qs/
    :alt: PyPI version
 
-.. image:: https://img.shields.io/pypi/status/httpx-qs
+.. image:: https://img.shields.io/pypi/status/httpx-qs?logo=pypi
    :target: https://pypi.org/project/httpx-qs/
    :alt: PyPI - Status
 
-.. image:: https://img.shields.io/pypi/pyversions/httpx-qs
+.. image:: https://img.shields.io/pypi/pyversions/httpx-qs?logo=python&label=Python
    :target: https://pypi.org/project/httpx-qs/
    :alt: Supported Python versions
 
@@ -20,7 +20,7 @@ Smart, policy-driven query string merging & encoding for `httpx <https://www.pyt
    :target: https://www.pypy.org/
    :alt: PyPy support status
 
-.. image:: https://img.shields.io/pypi/format/httpx-qs
+.. image:: https://img.shields.io/pypi/format/httpx-qs?logo=python
    :target: https://pypi.org/project/httpx-qs/
    :alt: PyPI - Format
 
@@ -44,7 +44,7 @@ Smart, policy-driven query string merging & encoding for `httpx <https://www.pyt
    :target: https://app.codacy.com/gh/techouse/httpx_qs/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
    :alt: Codacy Quality
 
-.. image:: https://img.shields.io/github/sponsors/techouse
+.. image:: https://img.shields.io/github/sponsors/techouse?logo=github
    :target: https://github.com/sponsors/techouse
    :alt: GitHub Sponsors
 
@@ -52,26 +52,26 @@ Smart, policy-driven query string merging & encoding for `httpx <https://www.pyt
    :target: https://github.com/techouse/httpx_qs/stargazers
    :alt: GitHub Repo stars
 
-.. image:: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+.. image:: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg?logo=contributorcovenant
    :target: CODE-OF-CONDUCT.md
    :alt: Contributor Covenant
 
-.. |flake8| image:: https://img.shields.io/badge/flake8-checked-blueviolet.svg
+.. |flake8| image:: https://img.shields.io/badge/flake8-checked-blueviolet.svg?logo=python
    :target: https://flake8.pycqa.org/en/latest/
 
-.. image:: https://img.shields.io/badge/mypy-checked-blue.svg
+.. image:: https://img.shields.io/badge/mypy-checked-blue.svg?logo=python
    :target: https://mypy.readthedocs.io/en/stable/
    :alt: mypy
 
-.. image:: https://img.shields.io/badge/linting-pylint-yellowgreen.svg
+.. image:: https://img.shields.io/badge/linting-pylint-yellowgreen.svg?logo=python
    :target: https://github.com/pylint-dev/pylint
    :alt: pylint
 
-.. image:: https://img.shields.io/badge/imports-isort-blue.svg
+.. image:: https://img.shields.io/badge/imports-isort-blue.svg?logo=python
    :target: https://pycqa.github.io/isort/
    :alt: isort
 
-.. image:: https://img.shields.io/badge/security-bandit-blue.svg
+.. image:: https://img.shields.io/badge/security-bandit-blue.svg?logo=python
    :target: https://github.com/PyCQA/bandit
    :alt: Security Status
 
