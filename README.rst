@@ -13,7 +13,7 @@ Smart, policy-driven query string merging & encoding for `httpx <https://www.pyt
    :alt: PyPI - Status
 
 .. image:: https://img.shields.io/pypi/dm/httpx-qs?logo=pypi&label=PyPI%20downloads
-   :target: https://pypi.org/project/httpx-qs/
+   :target: https://pypistats.org/packages/httpx-qs
    :alt: PyPI - Downloads
 
 .. image:: https://img.shields.io/pypi/pyversions/httpx-qs?logo=python&label=Python
