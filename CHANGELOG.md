@@ -1,3 +1,9 @@
+## 0.2.2
+
+* [CHORE] add free-threaded CPython 3.14t tox and GitHub Actions coverage
+* [CHORE] add non-blocking free-threaded CPython 3.13t GitHub Actions coverage
+* [CHORE] advertise free-threaded Python support in package metadata
+
 ## 0.2.1
 
 * [CHORE] pin mypy<1.19 on PyPy to avoid new `librt` build failures while keeping newer mypy on CPython
