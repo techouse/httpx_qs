@@ -36,7 +36,7 @@ jobs:
       - name: Run static analysis
         run: tox -e linters
   test:
-    name: "Test"
+    name: "Test (${{ matrix.py }})"
     needs: analyze
     runs-on: ubuntu-latest
     strategy:
@@ -56,6 +56,8 @@ jobs:
             py: "3.13"
           - toxenv: "python3.14"
             py: "3.14"
+          - toxenv: "python3.14t"
+            py: "3.14t"
           - toxenv: "pypy3.8"
             py: "pypy3.8"
           - toxenv: "pypy3.9"
@@ -78,11 +80,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
       - name: Install dependencies
-        run: |
-          pip install -U codecov tox-gh-actions
-          pip install -r requirements_dev.txt
+        run: pip install -r requirements_dev.txt
       - name: Test with tox
-        run: tox
+        run: tox -e ${{ matrix.toxenv }}
       - name: Check Code Coverage
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
@@ -104,3 +104,25 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage.xml
+  experimental-test:
+    name: "Experimental Test (3.13t)"
+    needs: analyze
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Python 3.13t
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13t"
+          cache: "pip"
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-1
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install dependencies
+        run: pip install -r requirements_dev.txt
+      - name: Test with tox
+        run: tox -e python3.13t
