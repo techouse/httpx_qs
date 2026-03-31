@@ -6,7 +6,6 @@ from .enums.merge_policy import MergePolicy
 from .transporters import smart_query_strings
 from .utils.merge_query import merge_query
 
-
 __all__ = [
     "smart_query_strings",
     "MergePolicy",

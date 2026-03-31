@@ -114,7 +114,7 @@ exclude = '''
 [tool.isort]
 line_length = 120
 profile = "black"
-lines_after_imports = 2
+lines_after_imports = -1
 known_first_party = "httpx_qs"
 skip_gitignore = true
 
