@@ -104,3 +104,25 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage.xml
+  experimental-test:
+    name: "Experimental Test (3.13t)"
+    needs: analyze
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Python 3.13t
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13t"
+          cache: "pip"
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-1
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install dependencies
+        run: pip install -r requirements_dev.txt
+      - name: Test with tox
+        run: tox -e python3.13t
