@@ -25,7 +25,7 @@ jobs:
     name: "Analyze"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -67,7 +67,7 @@ jobs:
           - toxenv: "pypy3.11"
             py: "pypy3.11"
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.py }}
         uses: actions/setup-python@v6
         with:
@@ -110,7 +110,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Python 3.13t
         uses: actions/setup-python@v6
         with:
